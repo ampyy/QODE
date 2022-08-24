@@ -1,0 +1,14 @@
+{% extends "dsa_app/base.html" %}
+{% block title %} Connect with Developers all around the world. {% endblock %}
+{% block content %}
+
+{% for solution in solutions %}
+    <div class="m-5 p-5"  style="background:#eee">
+        <h4 class="font-monospace">{{ solution.question.name }}</h4> <span>{{ solution.question.uuid }} </span>
+        <hr>
+        <div class="code font-monospace">
+            <p class="monospace">{{ solution.solution | safe }}</p>
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}

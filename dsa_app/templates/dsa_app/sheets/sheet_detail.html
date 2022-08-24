@@ -1,0 +1,122 @@
+{% extends 'dsa_app/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} {{ project.title }} {% endblock %}
+{% block content %}
+<!--<div class="mt-5">-->
+<!--{{ sheet.name }}-->
+
+<!--    <a href="{% url 'create-question' %}" href="btn btn-sm btn-secondary">Add</a>-->
+<!--    <br>-->
+<!--    {% for question in questions %}-->
+<!--        {{ question.name }}-->
+<!--        <a href="{% url 'update-question' question.uuid %}" class="btn btn-sm btn-secondary">Update</a><br>-->
+<!--        <a href="{% url 'delete-question' question.uuid %}" class="btn btn-sm btn-secondary">Delete</a>-->
+<!--    <hr>-->
+<!--    {% endfor %}-->
+<!--{{ sheet.uuid }}-->
+<!--   -->
+<!--</div>-->
+
+
+<div class="mt-5 container">
+    <div class="w3-bar w3-black">
+        <button class="w3-bar-item w3-button" onclick="openCity('Questions')">Questions</button>
+        <button class="w3-bar-item w3-button" onclick="openCity('Discuss')">Discuss</button>
+        <button class="w3-bar-item w3-button" onclick="openCity('Author')">About Author</button>
+        {% if sheet.user.user == request.user %}
+        <a href="{% url 'create-question' %}" class="btn text-white" style="float:right">Add Question</a>
+        {% endif %}
+
+    </div>
+
+    <div id="Questions" class="w3-container city p-5">
+        {% for question in questions %}
+        <div class="card mt-2">
+            <div class="card-body">
+                <a class="text-success font-monospace" href="{{question.question_link}}" target="_blank">{{ question.name }}</a>
+                <a class="text-info font-monospace" href="{{ question.solution_link }}" style="float:right" target="_blank">Solution </a>
+
+                {% if question.sheet.user.user == request.user %}
+                <hr>
+                <a href="{% url 'delete-question' question.uuid %}" class="badge text-bg-secondary mx-2">Delete</a>
+                <a href="{% url 'update-question' question.uuid %}" class="badge text-bg-secondary">Update</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div id="Discuss" class="w3-container city p-5" style="display:none">
+        <div class="card">
+            <div class="card-body hide">
+                {% include 'dsa_app/comments.html' with url=sheet.uuid %}
+            </div>
+        </div>
+        <div class="message text-center">Use Desktop to comment and view comments!</div>
+    </div>
+    <div id="Author" class="w3-container city p-5" style="display:none">
+        <div class="row py-5 px-4" style="width:100%;">
+            <div class="col-md-5 mx-auto"> <!-- Profile widget -->
+                <div class="bg-white shadow rounded overflow-hidden">
+                    <div class="px-4 pt-0 pb-4 cover">
+                        <div class="media align-items-end profile-head">
+                            <div class="profile mr-3"><img
+                                    src="{{ profile.profile_picture.url }}"
+                                    alt="..." width="130" class="rounded mb-2 img-thumbnail">
+                                <!--                        <a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a>-->
+                            </div>
+                            <!--                    <div class="media-body mb-5 text-white"><h4 class="mt-0 mb-0">Mark Williams</h4>-->
+                            <!--                        <p class="small mb-4"><i class="fas fa-map-marker-alt mr-2"></i>New York</p></div>-->
+                        </div>
+                    </div>
+                    <div class="px-4 py-3">
+                        <h5 class="mt-5">@{{ profile.user }}</h5>
+                        {% if profile.name %}
+                        <p>{{ profile.name }}</p>
+                        {% endif %}
+
+                        {% if profile.profession %}
+                        <div class="p-4 rounded shadow-sm bg-light"><p class="font-italic mb-0">{{ profile.profession }}</p>
+                            {% endif %}
+                            {% if profile.location %}
+                            <p class="font-italic">{{ profile.location }}</p>
+                            {% endif %}
+                            {% if profile.about_yourself %}
+                            <p class="font-italic">{{ profile.about_yourself }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="bg-light p-4 d-flex justify-content-end text-center">
+                        <ul class="list-inline mb-0 mx-auto">
+                            {% if profile.linkedin_link %}
+                            <li class="list-inline-item"><i class="fab fa-linkedin fa-lg" style="color: #3b5998;"></i>
+                                <a href="{{ profile.linkedin_link }}" target="_blank" class="mb-0">linkedin</a></li>
+                            {% endif %}
+                            {% if profile.instagram_link %}
+                            <li class="list-inline-item"><i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                                <a href="{{ profile.instagram_link  }}" target="_blank" class="mb-0">insta</a></li>
+                            {% endif %}
+                            {% if profile.github_link %}
+                            <li class="list-inline-item"><i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                                <a href="{{ profile.github_link }}" class="mb-0" target="_blank">github</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    function openCity(cityName) {
+      var i;
+      var x = document.getElementsByClassName("city");
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      document.getElementById(cityName).style.display = "block";
+    }
+
+
+    </script>
+
+
+    {% endblock %}

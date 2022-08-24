@@ -1,0 +1,88 @@
+{% extends "dsa_app/base.html" %}
+{% block title %} Connect with Developers all around the world. {% endblock %}
+{% block content %}
+<section class="bg-dark text-center py-5">
+    <img src="https://img.icons8.com/plasticine/100/000000/whole-fish.png"/>
+    <h1 class="text-light">{{ question.name }}</h1>
+    <p class="text-white">unique id - {{ question.uuid }}</p>
+</section>
+
+<section class="my-3 mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="alert alert-primary">
+                    {{ question.ques_description | safe}}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container my-3">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-1">
+                 <h6 class="font-weight-bold">Solve</h6>
+                <ul class="list-group">
+                    <li class="list-group-item pt-4">
+                        <a href="{{ question.gfg }}" target="_blank" class="font-monospace">Solve on GFG.</a>
+                    </li>
+                    <li class="list-group-item pt-4">
+                        <a href="{{ question.leetcode }}" target="_blank" class="font-monospace">Solve on Leetcode.</a>
+                    </li>
+                    {% if question.other %}
+                    <li class="list-group-item pt-4">
+                        <a href="{{ question.other }}" target="_blank" class="font-monospace">Solve.</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <hr>
+
+                <h6 class="font-weight-bold">Videos</h6>
+                {% if question.cplusplus_video %}
+                <a href="{{ question.cplusplus_video }}" target="_blank" class="font-monospace mb-3">C++ Video Explanation</a><br/>
+                {% endif %}
+                {% if question.java_video %}
+                <a href="{{ question.java_video }}" target="_blank" class="font-monospace mb-3">Java Video Explanation</a><br>
+                {% endif %}
+                 {% if question.python_video %}
+                <a href="{{ question.python_video }}" target="_blank" class="font-monospace mb-3">Python Video Solution</a>
+                {% endif %}
+                <hr>
+                <h6 class="font-weight-bold">Similar Questions</h6>
+                 {% if question.similar1 %}
+                <a href="{{ question.similar1 }}" target="_blank" class="font-monospace mb-3">Question 1</a><br/>
+                {% endif %}
+                 {% if question.similar2 %}
+                <a href="{{ question.similar2 }}" target="_blank" class="font-monospace mb-3">Question 2</a><br>
+                {% endif %}
+                <br>
+            </div>
+            <br>
+            <div class="col-lg-4">
+                <div class="card mb-5">
+                    <div class="card-header">
+                        Support
+                    </div>
+                    <div class="card-body">
+                        find <a href="{% url 'solutions' %}">Solution</a> here!
+                        <p class="card-title">Have a unique Solution? Submit here <a href="{% url 'create-solution' %}" target="_blank">Submit</a></p>
+                        <h4 class="text-success">unique solutions will win prizes!</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+   <div id="Discuss" class="w3-container city p-5">
+        <div class="card">
+            <div class="card-body hide">
+                {% include 'dsa_app/comments.html' with url=question.uuid %}
+            </div>
+        </div>
+        <div class="message text-center">Use Desktop to comment and view comments!</div>
+    </div>
+
+{% endblock %}

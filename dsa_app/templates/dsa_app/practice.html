@@ -1,0 +1,90 @@
+{% extends "dsa_app/base.html" %}
+{% block title %} Connect with Developers all around the world. {% endblock %}
+{% block content %}
+
+<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+  <strong>Qode hard and relax harder!</strong> new problem being added daily!
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="mt-5 container">
+    <div class="w3-bar w3-black">
+        <button class="w3-bar-item w3-button" onclick="openCity('Basic')">Basic</button>
+        <button class="w3-bar-item w3-button" onclick="openCity('Easy')">Easy</button>
+        <button class="w3-bar-item w3-button" onclick="openCity('Medium')">Medium</button>
+        <button class="w3-bar-item w3-button" onclick="openCity('Hard')">Hard</button>
+        <button class="w3-bar-item w3-button" onclick="openCity('Expert')">Expert</button>
+    </div>
+
+    <div id="Basic" class="w3-container city p-5">
+        {% for b in basic %}
+        <a href="{% url 'question-detail' b.uuid %}" class="font-monospace text-success">
+            <div class="card mt-2">
+                <div class="card-body">
+                    {{ b.name }}
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <div id="Easy" class="w3-container city p-5" style="display:none">
+       {% for e in easy %}
+        <a href="{% url 'question-detail' e.uuid %}" class="font-monospace text-success">
+            <div class="card mt-2">
+                <div class="card-body">
+                    {{ e.name }}
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <div id="Medium" class="w3-container city p-5" style="display:none">
+        {% for m in medium %}
+        <a href="{% url 'question-detail' m.uuid %}" class="font-monospace text-success">
+            <div class="card mt-2">
+                <div class="card-body">
+                    {{ m.name }}
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <div id="Hard" class="w3-container city p-5" style="display:none">
+       {% for h in hard %}
+        <a href="{% url 'question-detail' h.uuid %}" class="font-monospace text-success">
+            <div class="card mt-2">
+                <div class="card-body">
+                    {{ h.name }}
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+    <div id="Expert" class="w3-container city p-5" style="display:none">
+        {% for ex in expert %}
+        <a href="{% url 'question-detail' ex.uuid %}" class="font-monospace text-success">
+            <div class="card mt-2">
+                <div class="card-body">
+                    {{ ex.name }}
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+<script>
+    function openCity(cityName) {
+      var i;
+      var x = document.getElementsByClassName("city");
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      document.getElementById(cityName).style.display = "block";
+    }
+
+</script>
+{% endblock %}

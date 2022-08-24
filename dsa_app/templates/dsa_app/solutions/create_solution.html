@@ -1,0 +1,35 @@
+{% extends 'dsa_app/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+  <strong>Qode hard and relax harder!</strong>
+    <br>
+    make sure to choose the question to which you are providing the solution.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5 col-sm-12 border-bottom">
+            <h3 class="font-monospace">Solution</h3>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-3 mb-5">
+        <div class="col-md-5 col-sm-12 border-bottom">
+            <form method="POST" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                {{ form.media }}
+                {{ form | crispy }}
+                <div class="d-grid gap-2">
+                    <button class="btn btn-success mt-3">Submit!</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="alert alert-warning text-center" role="alert">
+   solutions cannot be edited, they can only be deleted answer wisely!
+</div>
+{% endblock %}
