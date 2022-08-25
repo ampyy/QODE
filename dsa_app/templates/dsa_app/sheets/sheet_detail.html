@@ -1,22 +1,7 @@
 {% extends 'dsa_app/base.html' %}
 {% load crispy_forms_tags %}
-{% block title %} {{ project.title }} {% endblock %}
+{% block title %} {{ sheet.name }} {% endblock %}
 {% block content %}
-<!--<div class="mt-5">-->
-<!--{{ sheet.name }}-->
-
-<!--    <a href="{% url 'create-question' %}" href="btn btn-sm btn-secondary">Add</a>-->
-<!--    <br>-->
-<!--    {% for question in questions %}-->
-<!--        {{ question.name }}-->
-<!--        <a href="{% url 'update-question' question.uuid %}" class="btn btn-sm btn-secondary">Update</a><br>-->
-<!--        <a href="{% url 'delete-question' question.uuid %}" class="btn btn-sm btn-secondary">Delete</a>-->
-<!--    <hr>-->
-<!--    {% endfor %}-->
-<!--{{ sheet.uuid }}-->
-<!--   -->
-<!--</div>-->
-
 
 <div class="mt-5 container">
     <div class="w3-bar w3-black">
@@ -24,22 +9,25 @@
         <button class="w3-bar-item w3-button" onclick="openCity('Discuss')">Discuss</button>
         <button class="w3-bar-item w3-button" onclick="openCity('Author')">About Author</button>
         {% if sheet.user.user == request.user %}
-        <a href="{% url 'create-question' %}" class="btn text-white" style="float:right">Add Question</a>
+        {% else %}
+        {% if not enrolled %}
+        <a href="{% url 'enroll' sheet.uuid %}" class="btn text-white">enroll</a>
+        {% else %}
+        <a href="{% url 'unenroll' sheet.uuid %}" class="btn text-white">un enroll</a>
         {% endif %}
-
+        {% endif %}
     </div>
 
     <div id="Questions" class="w3-container city p-5">
         {% for question in questions %}
         <div class="card mt-2">
             <div class="card-body">
-                <a class="text-success font-monospace" href="{{question.question_link}}" target="_blank">{{ question.name }}</a>
-                <a class="text-info font-monospace" href="{{ question.solution_link }}" style="float:right" target="_blank">Solution </a>
-
+                <a class="text-success font-monospace" href="{{question.question_link}}" target="_blank">{{ question.name }}</a> - {{ question.Tag }}
+                 <a class="text-info font-monospace mx-2" href="{{ question.solution_link }}" style="float:right" target="_blank">Solution </a>
                 {% if question.sheet.user.user == request.user %}
                 <hr>
-                <a href="{% url 'delete-question' question.uuid %}" class="badge text-bg-secondary mx-2">Delete</a>
-                <a href="{% url 'update-question' question.uuid %}" class="badge text-bg-secondary">Update</a>
+                <a href="{% url 'delete-question' question.uuid %}" class="badge text-bg-danger mx-2">Delete</a>
+                <a href="{% url 'update-question' question.uuid %}" class="badge text-bg-success">Update</a>
                 {% endif %}
             </div>
         </div>

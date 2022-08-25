@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>DevSearch - {% block title %} {% endblock %}</title>
+    <title>QODE - {% block title %} {% endblock %}</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" rel="stylesheet">
@@ -24,21 +24,23 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-md-auto gap-2">
+                {% if not user.is_authenticated %}
                 <li class="nav-item rounded">
                     <a aria-current="page" class="nav-link font-monospace" href="{% url 'home' %}"><i
-                            class="bi bi-house-fill me-2"></i>home</a>
+                            class="bi bi-house-fill me-2"></i>Main</a>
                 </li>
+                {% endif %}
                    <li class="nav-item rounded">
                     <a aria-current="page" class="nav-link font-monospace" href="{% url 'practice' %}"><i
-                            class="bi bi-house-fill me-2"></i>practice</a>
+                            class="bi bi-house-fill me-2"></i>Practice-sheet</a>
                 </li>
                 <li class="nav-item rounded">
-                    <a class="nav-link font-monospace" href="{% url 'sheets' %}"><i class="bi bi-people-fill me-2"></i>latest sheets</a>
+                    <a class="nav-link font-monospace" href="{% url 'sheets' %}"><i class="bi bi-people-fill me-2"></i>Latest-sheets</a>
                 </li>
                 {% if user.is_authenticated %}
                    <li class="nav-item rounded">
                     <a aria-current="page" class="nav-link font-monospace" href="{% url 'profile' %}"><i
-                            class="bi bi-house-fill me-2"></i>profile</a>
+                            class="bi bi-house-fill me-2"></i>My-sheets</a>
                 </li>
                 <li class="nav-item rounded">
                     <a aria-current="page" class="nav-link font-monospace" href="{% url 'account_logout' %}"><i
@@ -58,8 +60,7 @@
     {% block content %}
     {% endblock %}
 </div>
-
-<script id="dsq-count-scr" src="//kommunity.disqus.com/count.js" async></script>
+<script id="dsq-count-scr" src="//Kommunity-1.disqus.com/count.js" async></script>
 <!--<script type="text/javascript" src="{% static 'js/main.js' %}"></script>-->
 <script crossorigin="anonymous"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"

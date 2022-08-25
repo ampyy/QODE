@@ -1,14 +1,15 @@
 {% extends "dsa_app/base.html" %}
-{% block title %} Connect with Developers all around the world. {% endblock %}
+{% block title %} Create Question {% endblock %}
 {% block content %}
 
 {% for solution in solutions %}
-    <div class="m-5 p-5"  style="background:#eee">
-        <h4 class="font-monospace">{{ solution.question.name }}</h4> <span>{{ solution.question.uuid }} </span>
-        <hr>
-        <div class="code font-monospace">
-            <p class="monospace">{{ solution.solution | safe }}</p>
-        </div>
-    </div>
+<div class="mt-5 p-2" style="background:#eee; width: 60%; margin: 0 auto;">
+    @{{ solution.user }}<h4 class="font-monospace">{{ solution.question.name }}</h4>
+     <a href="{{ solution.solution_file.url }}" class="font-monospace">Download Solution</a>
+    <hr>
+    {% if solution.description %}
+    <p class="font-monospace">{{ solution.description }}</p>
+    {% endif %}
+</div>
 {% endfor %}
 {% endblock %}

@@ -1,10 +1,16 @@
 {% extends "dsa_app/base.html" %}
-{% block title %} Connect with Developers all around the world. {% endblock %}
+{% block title %} {{ question.name }} {% endblock %}
 {% block content %}
 <section class="bg-dark text-center py-5">
     <img src="https://img.icons8.com/plasticine/100/000000/whole-fish.png"/>
-    <h1 class="text-light">{{ question.name }}</h1>
-    <p class="text-white">unique id - {{ question.uuid }}</p>
+    <h1 class="text-light font-monospace">{{ question.name }}</h1>
+    <p class="text-white font-monospace">{{ question.Tags }}</p>
+    {% if completed %}
+    <a href="{% url 'mark-complete' question.uuid %}" class="text-success font-monospace">Completed</a>
+    {% else %}
+    <a href="{% url 'mark-complete' question.uuid %}" class="font-monospace">Mark completed</a>
+    {% endif %}
+
 </section>
 
 <section class="my-3 mb-5">
@@ -66,9 +72,9 @@
                         Support
                     </div>
                     <div class="card-body">
-                        find <a href="{% url 'solutions' %}">Solution</a> here!
+                        Find <a href="{% url 'solutions' %}">Solution</a> here!
                         <p class="card-title">Have a unique Solution? Submit here <a href="{% url 'create-solution' %}" target="_blank">Submit</a></p>
-                        <h4 class="text-success">unique solutions will win prizes!</h4>
+                        <h5 class="text-success font-monospace">unique solutions will win prizes!</h5>
                     </div>
                 </div>
             </div>

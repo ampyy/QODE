@@ -1,5 +1,5 @@
 {% extends "dsa_app/base.html" %}
-{% block title %} Connect with Developers all around the world. {% endblock %}
+{% block title %} My sheets {% endblock %}
 {% block content %}
 
 <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
@@ -15,10 +15,7 @@
                     <div class="profile mr-3"><img
                             src="{{ profile.profile_picture.url }}"
                             alt="..." width="130" class="rounded mb-2 img-thumbnail">
-                        <!--                        <a href="#" class="btn btn-outline-dark btn-sm btn-block">Edit profile</a>-->
                     </div>
-                    <!--                    <div class="media-body mb-5 text-white"><h4 class="mt-0 mb-0">Mark Williams</h4>-->
-                    <!--                        <p class="small mb-4"><i class="fas fa-map-marker-alt mr-2"></i>New York</p></div>-->
                 </div>
             </div>
             <div class="px-4 py-3">
@@ -59,7 +56,8 @@
         </div>
     </div>
 </div>
-<h4 class="mt-3 text-center font-monospace">my-sheets</h4>
+<h4 class="mt-3 text-center font-monospace">my sheet </h4>
+<center><small>(update the sheet name and description to make it visible to others)</small></center>
 <section class="" style="">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -72,7 +70,7 @@
                             {% else %}
                             <a href="{%url 'update-sheet' sheet.uuid %}">Update name here!</a>
                             {% endif %}
-                            <p class="font-monospace">{{ questions.count }} questions</p>
+                            <p class="font-monospace">{{ questions.count }} questions added.</p>
                             {% if sheet.description %}
                             <p>{{ sheet.description|safe }}</p>
                             {% else %}
@@ -97,13 +95,13 @@
                                     <p class="mb-0 me-2">@{{ sheet.user }}</p>
                                     <br>
                                     {% if sheet.user.profession %}
-                                    <small>-{{ sheet.user.profession }}</small>
+                                    <small>{{ sheet.user.profession }}</small>
                                     {% endif %}
                                 </div>
                                 <div>
                                     <a href="{% url 'sheet-detail' sheet.uuid %}"
                                        class="btn btn-outline-dark btn-rounded btn-sm"
-                                       data-mdb-ripple-color="dark">Dive
+                                       data-mdb-ripple-color="dark">Open sheet
                                     </a>
                                     <a href="{% url 'update-sheet' sheet.uuid %}" class="btn btn-secondary btn-sm">Update
                                         sheet</a>
@@ -113,6 +111,64 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+<h4 class="mt-3 text-center font-monospace">enrolled sheets</h4>
+<center><small>(sheets appear here in which you enroll) <a href="{% url 'sheets' %}">sheets</a></small></center>
+<section class="" style="">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            {% for sheet in enrolled_sheets %}
+            <div class="col m-2 col-md-9 col-lg-7 col-xl-5">
+                <div class="card" style="border-radius: 15px; background-color: #eee;">
+                    <div class="card-body p-4 text-black">
+                        <div class="flex-grow-1 ms-3">
+                            {% if sheet.name %}
+                            <h4 class="text-success font-monospace">{{ sheet.name }}</h4>
+                            {% else %}
+                            <a href="{%url 'update-sheet' sheet.uuid %}">Update name here!</a>
+                            {% endif %}
+                            <p class="font-monospace">{{ questions.count }} questions added yet.</p>
+                            {% if sheet.description %}
+                            <p>{{ sheet.description|safe }}</p>
+                            {% else %}
+                            <a href="{%url 'update-sheet' sheet.uuid %}">Update description here!</a>
+                            {% endif %}
+                             <a
+                                href="{% url 'sheet-detail' sheet.uuid %}#disqus_thread"
+                                class="text-green"
+                                data-mdb-ripple-color="dark">join the discussion
+                                    </a></span>
+                        </div>
+                        <hr>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <img src="{{ sheet.user.profile_picture.url }}"
+                                     alt="Generic placeholder image"
+                                     class="img-fluid rounded-circle border border-dark border-3"
+                                     style="width: 70px;">
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <div class="d-flex flex-row align-items-center mb-2">
+                                    <p class="mb-0 me-2">@{{ sheet.user }}</p>
+                                    <br>
+                                    {% if sheet.user.profession %}
+                                    <small>{{ sheet.user.profession }}</small>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <a href="{% url 'sheet-detail' sheet.uuid %}"
+                                       class="btn btn-outline-dark btn-rounded btn-sm"
+                                       data-mdb-ripple-color="dark">Open Sheet
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </section>

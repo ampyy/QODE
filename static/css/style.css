@@ -19,7 +19,9 @@ input[type=text] {
   font-weight: bold;
   color: #000;
 }
-
+p{
+    font-family: 'Source Code Pro', monospace;
+}
 .font{
     font-family: 'Source Code Pro', monospace;
 }

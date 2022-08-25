@@ -1,0 +1,44 @@
+{% extends "dsa_app/base.html" %}
+{% block title %} Search Practice sheet {% endblock %}
+{% block content %}
+
+<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+  <strong>Qode hard and relax harder!</strong> new problem being added daily!
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="form-outline mt-5" style="width: 80%; margin: 0 auto;">
+    <div class="search">
+        <form action="{% url 'search-practice' %}">
+            <input name="q" class="form-control" placeholder="Type name, tags?" type="text">
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div id="Basic" class="w3-container city p-5">
+        {% for b in questions %}
+        <a href="{% url 'question-detail' b.uuid %}" class="font-monospace text-success">
+            <div class="card mt-2">
+                <div class="card-body">
+                    {{ b.name }}
+                    {% if b.level == "BASIC" %}
+                    <span style="float:right;color:#90EE90">{{ b.level }}</span>
+                    {% elif b.level == "EASY" %}
+                    <span style="float:right;color:#65A765">{{ b.level }}</span>
+                    {% elif b.level == "MEDIUM" %}
+                    <span style="float:right;color:#fff44f">{{ b.level }}</span>
+                    {% elif b.level == "HARD" %}
+                    <span style="float:right;color:#E10600;">{{ b.level }}</span>
+                    {% elif b.level == "EXPERT" %}
+                    <span style="float:right;color:#610300">{{ b.level }}</span>
+                    {% endif %}
+                </div>
+
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

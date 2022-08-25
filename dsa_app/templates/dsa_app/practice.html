@@ -1,5 +1,5 @@
 {% extends "dsa_app/base.html" %}
-{% block title %} Connect with Developers all around the world. {% endblock %}
+{% block title %} Practice Sheet {% endblock %}
 {% block content %}
 
 <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
@@ -7,14 +7,23 @@
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 
+<div class="form-outline mt-5" style="width: 80%; margin: 0 auto;">
+    <div class="search">
+         <form action="{% url 'search-practice' %}">
+            <input name="q" class="form-control" placeholder="Search type name, tags?" type="text">
+        </form>
+    </div>
+</div>
+
 <div class="mt-5 container">
     <div class="w3-bar w3-black">
-        <button class="w3-bar-item w3-button" onclick="openCity('Basic')">Basic</button>
-        <button class="w3-bar-item w3-button" onclick="openCity('Easy')">Easy</button>
-        <button class="w3-bar-item w3-button" onclick="openCity('Medium')">Medium</button>
-        <button class="w3-bar-item w3-button" onclick="openCity('Hard')">Hard</button>
-        <button class="w3-bar-item w3-button" onclick="openCity('Expert')">Expert</button>
+        <button class="w3-bar-item w3-button tablink  w3-white w3-border-bottom" onclick="openCity(event, 'Basic')">Basic</button>
+        <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'Easy')">Easy</button>
+        <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'Medium')">Medium</button>
+        <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'Hard')">Hard</button>
+        <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'Expert')">Expert</button>
     </div>
+
 
     <div id="Basic" class="w3-container city p-5">
         {% for b in basic %}
@@ -22,6 +31,7 @@
             <div class="card mt-2">
                 <div class="card-body">
                     {{ b.name }}
+                    <span style="float:right;color:#90EE90">{{ b.level }}</span>
                 </div>
             </div>
         </a>
@@ -34,6 +44,7 @@
             <div class="card mt-2">
                 <div class="card-body">
                     {{ e.name }}
+                    <span style="float:right;color:#65A765">{{ e.level }}</span>
                 </div>
             </div>
         </a>
@@ -46,6 +57,7 @@
             <div class="card mt-2">
                 <div class="card-body">
                     {{ m.name }}
+                    <span style="float:right;color:#fff44f">{{ m.level }}</span>
                 </div>
             </div>
         </a>
@@ -58,6 +70,7 @@
             <div class="card mt-2">
                 <div class="card-body">
                     {{ h.name }}
+                    <span style="float:right;color:#E10600;">{{ h.level }}</span>
                 </div>
             </div>
         </a>
@@ -70,6 +83,7 @@
             <div class="card mt-2">
                 <div class="card-body">
                     {{ ex.name }}
+                    <span style="float:right;color:#610300">{{ ex.level }}</span>
                 </div>
             </div>
         </a>
@@ -77,14 +91,18 @@
     </div>
 </div>
 <script>
-    function openCity(cityName) {
-      var i;
-      var x = document.getElementsByClassName("city");
-      for (i = 0; i < x.length; i++) {
-        x[i].style.display = "none";
-      }
-      document.getElementById(cityName).style.display = "block";
-    }
-
+function openCity(evt, cityName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("city");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-white", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " w3-white";
+}
 </script>
 {% endblock %}

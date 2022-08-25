@@ -32,11 +32,32 @@ class UpdateSheetForm(forms.ModelForm):
         name = forms.CharField(
             widget=forms.TextInput(attrs={'placeholder': 'Your Sheet Name'}),
             label='Sheet Name')
-        description = RichTextField()
+        description = forms.CharField(
+            widget=forms.TextInput(attrs={'placeholder': 'Your Sheet Description'}),
+            label='Sheet Description')
 
         class Meta:
             model = Sheet
             fields = ('name', 'description',)
+
+
+TOPIC = (
+    ('---Choose---', '---choose---'),
+    ('Array', 'Array'),
+    ('String', 'String'),
+    ('LinkedList', 'LinkedList'),
+    ('Stack', 'Stack'),
+    ('Queue', 'Queue'),
+    ('Tree', 'Tree'),
+    ('BST', 'BST'),
+    ('Graph', 'Graph'),
+    ('Heap', 'Heap'),
+    ('Sorting', 'Sorting'),
+    ('Searching', 'Searching'),
+    ('Greedy', 'Greedy'),
+    ('DP', 'Dynamic Programming'),
+    ('Backtracking', 'Backtracking'),
+)
 
 
 class CreateQuestionForm(forms.ModelForm):
@@ -51,6 +72,7 @@ class CreateQuestionForm(forms.ModelForm):
     name = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'question Name'}),
         label='Question Name')
+    Tag =  forms.ChoiceField(choices = TOPIC)
     question_link = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'your question link'}),
         label='Question link')
@@ -60,22 +82,33 @@ class CreateQuestionForm(forms.ModelForm):
 
     class Meta:
         model = UserQuestion
-        fields = ('sheet', 'name', 'question_link', 'solution_link')
+        fields = ('sheet', 'name', 'Tag', 'question_link', 'solution_link')
 
 
 class CreateSolutionForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request')
+        super(CreateSolutionForm, self).__init__(*args, **kwargs)
+        self.fields['user'].queryset = UserProfile.objects.filter(
+            user=self.request.user)
+
+    user = forms.ModelChoiceField(queryset=None, initial=0)
     question = forms.ModelChoiceField(queryset=Question.objects.all())
-    solution = RichTextField()
+    solution_file = forms.FileField(label="Your solution file (1Mb-2Mb)")
+    description = forms.CharField(
+        widget=forms.Textarea(attrs={'placeholder': 'Explain Solution (Optional)'}),
+        label='Description')
 
     class Meta:
         model = Solution
-        fields = ('question', 'solution',)
+        fields = ('user', 'question', 'solution_file', 'description')
 
 
 class UpdateQuestionForm(forms.ModelForm):
     name = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'question Name'}),
         label='Question Name')
+    Tag = forms.ChoiceField(choices=TOPIC)
     question_link = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'your question link'}),
         label='Question link')
@@ -85,4 +118,4 @@ class UpdateQuestionForm(forms.ModelForm):
 
     class Meta:
         model = UserQuestion
-        fields = ('name', 'question_link', 'solution_link',)
+        fields = ('name', 'Tag', 'question_link', 'solution_link',)
