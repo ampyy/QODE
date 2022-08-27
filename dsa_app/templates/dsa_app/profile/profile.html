@@ -129,7 +129,7 @@
                             {% else %}
                             <a href="{%url 'update-sheet' sheet.uuid %}">Update name here!</a>
                             {% endif %}
-                            <p class="font-monospace">{{ questions.count }} questions added yet.</p>
+                            <p class="font-monospace">{{ sheet.numbooks }} questions added yet.</p>
                             {% if sheet.description %}
                             <p>{{ sheet.description|safe }}</p>
                             {% else %}

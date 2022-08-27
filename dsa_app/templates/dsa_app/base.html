@@ -24,12 +24,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-md-auto gap-2">
-                {% if not user.is_authenticated %}
                 <li class="nav-item rounded">
                     <a aria-current="page" class="nav-link font-monospace" href="{% url 'home' %}"><i
                             class="bi bi-house-fill me-2"></i>Main</a>
                 </li>
-                {% endif %}
                    <li class="nav-item rounded">
                     <a aria-current="page" class="nav-link font-monospace" href="{% url 'practice' %}"><i
                             class="bi bi-house-fill me-2"></i>Practice-sheet</a>

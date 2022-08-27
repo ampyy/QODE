@@ -32,7 +32,10 @@ def profile(request):
     user_profile = UserProfile.objects.get(user=request.user)
     sheet = Sheet.objects.get(user=user_profile)
 
-    enrolled_sheets = Sheet.objects.filter(enrolled__user=request.user)
+    enrolled_sheets = Sheet.objects.filter(enrolled__user=request.user).annotate(
+        numbooks=Count('userquestion')
+    )
+
     questions = UserQuestion.objects.filter(sheet=sheet)
     context = {
         'profile': profile,
@@ -147,7 +150,7 @@ def update_question(request, slug):
         form = UpdateQuestionForm(request.POST or None, request.FILES, instance=obj)
         if form.is_valid():
             form.save()
-            return redirect('profile')
+            return redirect('sheet-detail', slug=obj.sheet.uuid)
     else:
         form = UpdateQuestionForm(instance=obj)
 
@@ -165,7 +168,7 @@ def delete_question(request, slug):
     obj = get_object_or_404(UserQuestion, uuid=slug)
     if request.method == "POST":
         obj.delete()
-        return redirect('profile')
+        return redirect('sheet-detail', slug=obj.sheet.uuid)
     str_user = obj.sheet.user.user
     user = request.user
     context['question_user'] = str_user

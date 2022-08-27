@@ -2,81 +2,48 @@
 {% block title %} Solve and share with your friends! {% endblock %}
 {% block content %}
 {% load static %}
-<div class="px-4 py-5 text-center" style="background-color:#e5e7eb">
+
+<div class="px-4 py-5" style="background-color:#e5e7eb">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+            <img src="{% static 'images/temp.jpeg' %}" class="d-block mx-lg-auto img-fluid rounded" alt="Bootstrap Themes" width="700"
+                 height="500" loading="lazy">
+        </div>
+        <div class="col-lg-6">
+            <h1 class="display-5 fw-bold">QODE, Solve and Share</h1>
+            <p class="lead mb-4">Solve the problems curated by experts with proper video explanations and solutions!</p>
+            <small class="font-monospace">This covers Arrays, Strings, Sorting & Searching LinkedList, STack, Queue, DP, Greedy, Backtracking, Trees, Graphs and more adding.</small>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
+             <a href="{% url 'practice' %}" class="btn btn-primary btn-sm px-4 gap-3 font-monospace">Practice sheet</a>
+            <a href="{% url 'sheets' %}" class="btn btn-outline-secondary btn-sm px-4 font-monospace">Fellow Coders</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="w3-center mt-5 mb-5" style="width:80%; margin: 0 auto;">-->
+<!--    <h1 class="font-monospace mb-3">a 1 minute Introduction</h1>-->
+<!--    <hr>-->
+<!--    <iframe src="https://www.youtube.com/embed/x0At8E6ANno" frameborder="0"-->
+<!--            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen-->
+<!--            style="width:100%;height:500px;"></iframe>-->
+<!--</div>-->
+
+<div class="px-4 py-5 text-center">
     <img class="d-block mx-auto mb-4" src="{% static 'images/solve.png' %}" alt="" width="72" height="57">
-    <h1 class="display-5 fw-bold">QODE, Solve and Share</h1>
+    <h1 class="display-5 fw-bold">Hi! this is aman</h1>
     <div class="col-lg-6 mx-auto">
-        <p class="lead mb-4">Solve the curated problems required to crack companies and watch your friends around!</p>
+        <p class="lead mb-4">I have taken help of various platforms and seniors who are developers and curated this sheet with help. This consists of
+            all important conceptual problems in structured manner from array string to dp greedy and even trees, graphs are covered
+            with solutions + you can also do sheets of other developers by going here
+             <a href="{% url 'sheets' %}" class="font-monospace">Fellow Coders</a>
+        </p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <a href="{% url 'account_login' %}" class="btn btn-primary btn-sm px-4 gap-3 font-monospace">login</a>
-            <a href="{% url 'sheets' %}" class="btn btn-outline-secondary btn-sm px-4 font-monospace">practice</a>
+            <a href="{% url 'account_login' %}" class="btn btn-primary btn-sm px-4 gap-3 font-monospace">chal phodte hai!</a>
+
         </div>
     </div>
 </div>
 
 
-<div class="problems mt-5 mb-3">
-    <div class="accordion" id="accordionExample">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                        aria-expanded="true" aria-controls="collapseOne">
-                    What is QODE
-                </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                 data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                        <p class="font-monospace">QODE - a community where people share their sheets their experiences of becoming a developer, their talent and most importantly
-                            their gained knowledge. Use QODE as a one stop platform where you can find the curation of the best problems and content!</p>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Sample Questions
-                </button>
-            </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
-                 data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                   <div id="Basic" class="w3-container city">
-                        {% for b in basic %}
-                        <a href="{% url 'question-detail' b.uuid %}" class="font-monospace text-success">
-                            <div class="card mt-2">
-                                <div class="card-body">
-                                    {{ b.name }}
-                                </div>
-                            </div>
-                        </a>
-                        {% endfor %}
-                    </div>
-                    <br>
-                    <a href="{% url 'practice' %}">find more</a>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingThree">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Coming Soon
-                </button>
-            </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                 data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                    <pre>
-                    Soon coming features
-                    - Mark completion
-                    - Code editor
-                    - follow like share
-                    </pre>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 {% endblock %}

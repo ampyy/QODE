@@ -19,6 +19,7 @@
                             <a href="{% url 'sheet-detail' sheet.uuid %}#disqus_thread" class="text-green"
                                data-mdb-ripple-color="dark">join the discussion
                             </a></span>
+                            <p>{{ sheet.enrolled.count }}</p>
                         </div>
                         <hr>
                         <div class="d-flex align-items-center">
