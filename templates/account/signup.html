@@ -8,7 +8,7 @@
 
 {% block content %}
 
-<div class="signup-card p-5">
+<div class="signup-card p-5" style="width:100%;">
 <div class="row justify-content-center">
   <div class="col-md-6 col-sm-12">
     <h1>{% trans "Sign Up" %}</h1>
@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<div class="row justify-content-center">
+<div class="row justify-content-center" style="width:100%;">
   <div class="col-md-6 col-sm-12">
     <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
       {% csrf_token %}

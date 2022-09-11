@@ -69,13 +69,20 @@ def practice(request):
     medium = Question.objects.filter(level='MEDIUM')
     hard = Question.objects.filter(level='HARD')
     expert = Question.objects.filter(level='EXPERT')
-    context  = {
-        'basic' : basic,
-        'easy' : easy,
-        'medium' : medium,
-        'hard' :hard,
-        'expert' : expert
+    context = {
+        'basic': basic,
+        'easy': easy,
+        'medium': medium,
+        'hard': hard,
+        'expert': expert,
     }
+    if request.user.is_authenticated:
+        completed_questions = Question.objects.filter(is_solved__user=request.user)
+        lst = []
+        for ele in completed_questions:
+            lst.append(ele.uuid)
+            context['lst'] = lst
+
     return render(request, "dsa_app/practice.html", context)
 
 

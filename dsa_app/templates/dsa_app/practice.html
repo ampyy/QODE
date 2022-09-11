@@ -1,95 +1,116 @@
 {% extends "dsa_app/base.html" %}
 {% block title %} Practice Sheet {% endblock %}
 {% block content %}
+{% load static %}
 
-<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-  <strong>Qode hard and relax harder!</strong> new problem being added daily!
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div class="container" style="margin-top: 100px;">
+
+    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+        <strong>Qode hard and relax harder!</strong> new problem being added daily!
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="form-outline" style="width: 80%;margin: 0 auto;">
+        <div class="search">
+            <form action="{% url 'search-practice' %}">
+                <input name="q" class="form-control" placeholder="Search type name, tags?" type="text">
+            </form>
+        </div>
 </div>
 
-<div class="form-outline mt-5" style="width: 80%; margin: 0 auto;">
-    <div class="search">
-         <form action="{% url 'search-practice' %}">
-            <input name="q" class="form-control" placeholder="Search type name, tags?" type="text">
-        </form>
+    <div class="mt-5 container">
+        <div class="w3-bar w3-black" style="background: #212529">
+            <button class="w3-bar-item w3-button tablink  w3-white w3-border-bottom" onclick="openCity(event, 'Basic')">Basic</button>
+            <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'Easy')">Easy</button>
+            <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'Medium')">Medium</button>
+            <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'Hard')">Hard</button>
+<!--            <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'Expert')">Expert</button>-->
+        </div>
+
+
+        <div id="Basic" class="w3-container city p-5">
+            {% for b in basic %}
+            <a href="{% url 'question-detail' b.uuid %}" class="font-monospace text-success">
+                <div class="mt-2">
+                    <div class="card-body">
+                        <h6>{{ b.name }} {% if b.uuid in lst %}
+                            <img src="{% static 'images/tick.png' %}" style="width:25px;">
+                            {% endif %}
+                            <span style="float:right;color:#90EE90">{{ b.level }}</span></h6>
+
+                    </div>
+                </div>
+            </a>
+            <hr>
+            {% endfor %}
+        </div>
+
+        <div id="Easy" class="w3-container city p-5" style="display:none">
+            {% for e in easy %}
+            <a href="{% url 'question-detail' e.uuid %}" class="font-monospace text-success">
+                <div class="mt-2">
+                    <div class="card-body">
+                        <h6>{{ e.name }} {% if e.uuid in lst %}
+                            <img src="{% static 'images/tick.png' %}" style="width:25px;">
+                            {% endif %}
+                            <span style="float:right;color:#90EE90">{{ e.level }}</span></h6>
+                    </div>
+                </div>
+            </a>
+            <hr>
+            {% endfor %}
+        </div>
+
+        <div id="Medium" class="w3-container city p-5" style="display:none">
+            {% for m in medium %}
+            <a href="{% url 'question-detail' m.uuid %}" class="font-monospace text-success">
+                <div class="mt-2">
+                    <div class="card-body">
+                        <h6>{{ m.name }} {% if m.uuid in lst %}
+                            <img src="{% static 'images/tick.png' %}" style="width:25px;">
+                            {% endif %}
+                            <span style="float:right;color:#90EE90">{{ m.level }}</span></h6>
+                    </div>
+                </div>
+            </a>
+            <hr>
+            {% endfor %}
+        </div>
+
+        <div id="Hard" class="w3-container city p-5" style="display:none">
+            {% for h in hard %}
+            <a href="{% url 'question-detail' h.uuid %}" class="font-monospace text-success">
+                <div class="mt-2">
+                    <div class="card-body">
+                        <h6>{{ h.name }} {% if h.uuid in lst %}
+                            <img src="{% static 'images/tick.png' %}" style="width:25px;">
+                            {% endif %}
+                            <span style="float:right;color:#90EE90">{{ h.level }}</span></h6>
+                    </div>
+                </div>
+            </a>
+            <hr>
+            {% endfor %}
+        </div>
+
+<!--        <div id="Expert" class="w3-container city p-5" style="display:none">-->
+<!--            {% for ex in expert %}-->
+<!--            <a href="{% url 'question-detail' ex.uuid %}" class="font-monospace text-success">-->
+<!--                <div class="mt-2">-->
+<!--                    <div class="card-body">-->
+<!--                        <h6>{{ ex.name }} {% if ex.uuid in lst %}-->
+<!--                            <img src="{% static 'images/tick.png' %}" style="width:25px;">-->
+<!--                            {% endif %}-->
+<!--                            <span style="float:right;color:#90EE90">{{ ex.level }}</span></h6>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </a>-->
+<!--            <hr>-->
+<!--            {% endfor %}-->
+<!--        </div>-->
     </div>
 </div>
 
-<div class="mt-5 container">
-    <div class="w3-bar w3-black">
-        <button class="w3-bar-item w3-button tablink  w3-white w3-border-bottom" onclick="openCity(event, 'Basic')">Basic</button>
-        <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'Easy')">Easy</button>
-        <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'Medium')">Medium</button>
-        <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'Hard')">Hard</button>
-        <button class="w3-bar-item w3-button tablink" onclick="openCity(event, 'Expert')">Expert</button>
-    </div>
-
-
-    <div id="Basic" class="w3-container city p-5">
-        {% for b in basic %}
-        <a href="{% url 'question-detail' b.uuid %}" class="font-monospace text-success">
-            <div class="card mt-2">
-                <div class="card-body">
-                    {{ b.name }}
-                    <span style="float:right;color:#90EE90">{{ b.level }}</span>
-                </div>
-            </div>
-        </a>
-        {% endfor %}
-    </div>
-
-    <div id="Easy" class="w3-container city p-5" style="display:none">
-       {% for e in easy %}
-        <a href="{% url 'question-detail' e.uuid %}" class="font-monospace text-success">
-            <div class="card mt-2">
-                <div class="card-body">
-                    {{ e.name }}
-                    <span style="float:right;color:#65A765">{{ e.level }}</span>
-                </div>
-            </div>
-        </a>
-        {% endfor %}
-    </div>
-
-    <div id="Medium" class="w3-container city p-5" style="display:none">
-        {% for m in medium %}
-        <a href="{% url 'question-detail' m.uuid %}" class="font-monospace text-success">
-            <div class="card mt-2">
-                <div class="card-body">
-                    {{ m.name }}
-                    <span style="float:right;color:#fff44f">{{ m.level }}</span>
-                </div>
-            </div>
-        </a>
-        {% endfor %}
-    </div>
-
-    <div id="Hard" class="w3-container city p-5" style="display:none">
-       {% for h in hard %}
-        <a href="{% url 'question-detail' h.uuid %}" class="font-monospace text-success">
-            <div class="card mt-2">
-                <div class="card-body">
-                    {{ h.name }}
-                    <span style="float:right;color:#E10600;">{{ h.level }}</span>
-                </div>
-            </div>
-        </a>
-        {% endfor %}
-    </div>
-
-    <div id="Expert" class="w3-container city p-5" style="display:none">
-        {% for ex in expert %}
-        <a href="{% url 'question-detail' ex.uuid %}" class="font-monospace text-success">
-            <div class="card mt-2">
-                <div class="card-body">
-                    {{ ex.name }}
-                    <span style="float:right;color:#610300">{{ ex.level }}</span>
-                </div>
-            </div>
-        </a>
-        {% endfor %}
-    </div>
-</div>
 <script>
 function openCity(evt, cityName) {
   var i, x, tablinks;

@@ -8,7 +8,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="signup-card p-5">
+<div class="signup-card p-5" style="width:100%;">
     <div class="row justify-content-center">
         <div class="col-md-6 col-sm-12">
             <h1>{% trans "Login" %}</h1>
@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" style="width:100%;">
         <div class="col-md-6 col-sm-12">
             <form action="{% url 'account_login' %}" class="login" method="POST">
                 {% csrf_token %}

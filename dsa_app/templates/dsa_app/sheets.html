@@ -1,62 +1,63 @@
 {% extends "dsa_app/base.html" %}
 {% block title %} Latest sheets {% endblock %}
 {% block content %}
-<div class="mb-5">
-    <h1 class="text-center mt-5 font-monospace">latest sheets</h1>
-    <section class="" style="">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            {% for sheet in sheets %}
-            {% if sheet.name and sheet.description %}
-            <div class="col m-2 col-md-9 col-lg-7 col-xl-5">
-                <div class="card" style="border-radius: 15px; background-color: #eee;">
-                    <div class="card-body p-4 text-black">
-                        <div class="flex-grow-1 ms-3">
-                            <h4 class="font-monospace text-success">{{ sheet.name }}</h4>
-                            <p class="font-monospace mt-0">{{ sheet.numbooks }} questions added yet.</p>
-                            <p class="font">{{ sheet.description|safe }}</p>
+<div class="container" style="margin-top: 100px;">
+    <div class="mb-5">
+        <h1 class="text-center mt-5 font-monospace">latest sheets</h1>
+        <section class="" style="">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    {% for sheet in sheets %}
+                    {% if sheet.name and sheet.description %}
+                    <div class="col m-2 col-md-9 col-lg-7 col-xl-5">
+                        <div class="card" style="border-radius: 15px; background-color: #eee;">
+                            <div class="card-body p-4 text-black">
+                                <div class="flex-grow-1 ms-3">
+                                    <h4 class="font-monospace text-success">{{ sheet.name }}</h4>
+                                    <p class="font-monospace mt-0">{{ sheet.numbooks }} questions added yet.</p>
+                                    <p class="font">{{ sheet.description|safe }}</p>
 
-                            <a href="{% url 'sheet-detail' sheet.uuid %}#disqus_thread" class="text-green"
-                               data-mdb-ripple-color="dark">join the discussion
-                            </a></span>
-                            <p>{{ sheet.enrolled.count }}</p>
-                        </div>
-                        <hr>
-                        <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0">
-                                <img src="{{ sheet.user.profile_picture.url }}"
-                                     alt="Generic placeholder image"
-                                     class="img-fluid rounded-circle border border-dark border-3"
-                                     style="width: 70px;">
-                            </div>
-                            <div class="flex-grow-1 ms-3">
-                                <div class="d-flex flex-row align-items-center mb-2">
-                                    <p class="mb-0 me-2">@{{ sheet.user }}</p>
-                                    <br>
-                                    {% if sheet.user.profession %}
-                                    <small>{{ sheet.user.profession }}</small>
-                                    {% endif %}
+                                    <a href="{% url 'sheet-detail' sheet.uuid %}#disqus_thread" class="text-green"
+                                       data-mdb-ripple-color="dark">join the discussion
+                                    </a></span>
+                                    <p>{{ sheet.enrolled.count }} people enrolled</p>
                                 </div>
-                                <div>
-                                    <a href="{% url 'sheet-detail' sheet.uuid %}"
-                                       class="btn btn-outline-dark btn-rounded btn-sm"
-                                       data-mdb-ripple-color="dark">Open Sheet
-                                    </a>
-                                    {% if sheet.user.user == request.user %}
-                                    <a href="{% url 'update-sheet' sheet.uuid %}" class="btn btn-secondary btn-sm">Update
-                                        sheet</a>
-                                    {% endif %}
+                                <hr>
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0">
+                                        <img src="{{ sheet.user.profile_picture.url }}"
+                                             alt="Generic placeholder image"
+                                             class="img-fluid rounded-circle border border-dark border-3"
+                                             style="width: 70px;">
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <div class="d-flex flex-row align-items-center mb-2">
+                                            <p class="mb-0 me-2">@{{ sheet.user }}</p>
+                                            <br>
+<!--                                            {% if sheet.user.profession %}-->
+<!--                                            <small>{{ sheet.user.profession }}</small>-->
+<!--                                            {% endif %}-->
+                                        </div>
+                                        <div>
+                                            <a href="{% url 'sheet-detail' sheet.uuid %}"
+                                               class="btn btn-outline-dark btn-rounded btn-sm"
+                                               data-mdb-ripple-color="dark">Open Sheet
+                                            </a>
+                                            {% if sheet.user.user == request.user %}
+                                            <a href="{% url 'update-sheet' sheet.uuid %}" class="btn btn-secondary btn-sm">Update
+                                                sheet</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
             </div>
-            {% endif %}
-            {% endfor %}
-        </div>
+        </section>
     </div>
-</section>
 </div>
-
 {% endblock %}

@@ -1,6 +1,7 @@
 {% extends "dsa_app/base.html" %}
 {% block title %} {{ question.name }} {% endblock %}
 {% block content %}
+<div class="" style="margin-top: 50px;">
 <section class="bg-dark text-center py-5">
     <img src="https://img.icons8.com/plasticine/100/000000/whole-fish.png"/>
     <h1 class="text-light font-monospace">{{ question.name }}</h1>
@@ -10,14 +11,13 @@
     {% else %}
     <a href="{% url 'mark-complete' question.uuid %}" class="font-monospace">Mark completed</a>
     {% endif %}
-
 </section>
 
 <section class="my-3 mb-5">
     <div class="container">
         <div class="row">
             <div class="col-lg-10 offset-lg-1">
-                <div class="alert alert-primary">
+                <div class="alert border">
                     {{ question.ques_description | safe}}
                 </div>
             </div>
@@ -90,5 +90,5 @@
         </div>
         <div class="message text-center">Use Desktop to comment and view comments!</div>
     </div>
-
+</div>
 {% endblock %}
