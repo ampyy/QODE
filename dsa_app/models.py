@@ -123,3 +123,9 @@ class Solution(models.Model):
     solution_file = models.FileField(upload_to='uploads/solutions', null=False, blank=False)
     description = models.CharField(max_length=400)
     posted = models.DateTimeField(auto_now_add=True)
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=30)
+    email_id = models.CharField(max_length=100)
+    description = models.CharField(max_length=400)

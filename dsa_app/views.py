@@ -16,6 +16,10 @@ def home(request):
     return render(request, "dsa_app/home.html", {'basic':basic})
 
 
+def interview(request):
+    return render(request, "dsa_app/interview/coming.html")
+
+
 def sheets(request):
     sheets = Sheet.objects.annotate(
         numbooks=Count('userquestion')
@@ -147,6 +151,15 @@ class QuestionCreateView(LoginRequiredMixin, generic.CreateView):
         kwargs = super(QuestionCreateView, self).get_form_kwargs()
         kwargs['request'] = self.request
         return kwargs
+
+
+class ContactView(LoginRequiredMixin, generic.CreateView):
+    model = Contact
+    form_class = ContactForm
+    template_name = 'dsa_app/contact.html'
+
+    def get_success_url(self):
+        return reverse('home')
 
 
 @login_required

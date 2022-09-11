@@ -119,3 +119,19 @@ class UpdateQuestionForm(forms.ModelForm):
     class Meta:
         model = UserQuestion
         fields = ('name', 'Tag', 'question_link', 'solution_link',)
+
+
+class ContactForm(forms.ModelForm):
+    name = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': 'your name?'}),
+        label='Name')
+    email_id = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': 'email?'}),
+        label='Email')
+    description = forms.CharField(
+        widget=forms.Textarea(attrs={'placeholder': 'what is your query?'}),
+        label='Query')
+
+    class Meta:
+        model = Contact
+        fields = ('name', 'email_id', 'description',)
